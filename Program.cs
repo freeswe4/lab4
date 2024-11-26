@@ -181,7 +181,7 @@
                     }
                 } while (!isCorrect);
 
-                temp = new int[arr.Length - 1]; //формирование вспомогательного массива и длиной на 1 меньше, чем основной
+                temp = new int[arr.Length - 1]; //формирование вспомогательного массива длиной на 1 меньше, чем основной
 
                 for (int i = 0; i < arr.Length; i++)
                 {
@@ -317,16 +317,16 @@
             }
             else
             {
-                int h = arr.Length - 1;
+                int h = arr.Length - 1; //указатель с конца строки
                 temp = new int[arr.Length];
-                for (int i = 0; i < arr.Length; i++)
+                for (int i = 0; i < arr.Length; i++) //проходимся по массиву, двигаясь с начала и конца к середине
                 {
-                    if (Math.Abs(arr[i]) % 2 == 0)
+                    if (Math.Abs(arr[i]) % 2 == 0) //если чётный элемент, то добавляем на место после заполненного элемента с начала
                     {
                         temp[j] = arr[i];
                         j++;
                     }
-                    else
+                    else //нечётный элемент добавляем на свободное место с конца массива
                     {
                         temp[h] = arr[i];
                         h--;
@@ -336,8 +336,8 @@
                     Console.Write(item + " ");
                 Console.WriteLine("\nЗадача выполнена");
             }
-            int chooseReturn;
-            Console.WriteLine("Что вы хотите оставить?\n1. Первончальный массив\n2. Массив с перемещением чётных и нечётных");
+            int chooseReturn; //переменная выбора массива
+            Console.WriteLine("Что вы хотите оставить?\n1. Первончальный массив\n2. Массив с перемещением чётных и нечётных"); //выбор какой массив оставлять
             do
             {
                 isCorrect = Int32.TryParse(Console.ReadLine(), out chooseReturn);
@@ -364,13 +364,13 @@
             {
                 int sumArr = 0, midArithmetic, count = 0;
                 isCorrect = false;
-                foreach (int item in arr)
+                foreach (int item in arr) //вычисление суммы для срднего арифметического
                     sumArr += item;
                 midArithmetic = sumArr / arr.Length; //округлённое значение среднего арифметического
                 Console.WriteLine($"Среднее арифметическое всех элементов массива равно {midArithmetic}");
-                for (int i = 0; i < arr.Length; i++)
+                for (int i = 0; i < arr.Length; i++) //поиск элемента равного среднему арифметическому и подсчёт сравнений в перменной count
                 {
-                    if (arr[i] == midArithmetic)
+                    if (arr[i] == midArithmetic) //если нашли нужный элемент
                     {
                         isCorrect = true;
                         count++;
@@ -395,16 +395,16 @@
             {
                 int elem;
                 temp = new int[arr.Length];
-                for (int i = 1; i < arr.Length; i++)
+                for (int i = 1; i < arr.Length; i++) //сорттровка методом простого включения
                 {
                     elem = arr[i];
                     j = i - 1;
-                    while (j >= 0 && elem < arr[j])
+                    while (j >= 0 && elem < arr[j]) //пока текущий элемент меньше и мы не в самом начале, то меняем элементы местами
                     {
                         arr[j + 1] = arr[j];
                         j--;
                     }
-                    arr[j + 1] = elem;
+                    arr[j + 1] = elem; //по окончании цикла присваиваем значения меньшего элемента из сравниваемых в цикле
                 }
                 Console.WriteLine("Отсортированный массив:");
                 foreach (int item in arr)
@@ -424,7 +424,7 @@
             }
             else
             {
-                int num, left = 0, right = arr.Length, middle, count = 0;
+                int num, left = 0, right = arr.Length, middle, count = 0; //число для поиска, метки и счётчик
                 Console.WriteLine("Введите элемент, который нужно попытаться найти в массиве");
                 do
                 {
@@ -436,17 +436,17 @@
                 do
                 {
                     middle = (left + right) / 2;
-                    if (arr[middle] == num)
+                    if (arr[middle] == num) //если нужно число на середине
                     {
                         left = middle;
                         isCorrect = true;
                     }
-                    if  (num > arr[middle])
+                    if  (num > arr[middle]) //если число правее середины
                         left = middle + 1;
-                    else
+                    else //если число левее середины
                         right = middle;
                     count++;
-                    if (isCorrect)
+                    if (isCorrect) //проверка если нужно число на середине, то заканчиваем цикл
                         break;
                 } while (left != right);
                 if (num == arr[left])
