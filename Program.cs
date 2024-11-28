@@ -181,7 +181,7 @@
                     }
                 } while (!isCorrect);
 
-                temp = new int[arr.Length - 1]; //формирование вспомогательного массива длиной на 1 меньше, чем основной
+                temp = new int[arr.Length - 1]; //формирование вспомогательного массива и длиной на 1 меньше, чем основной
 
                 for (int i = 0; i < arr.Length; i++)
                 {
@@ -214,10 +214,6 @@
             }
             else
             {
-                if (arr.Length == 0)
-                {
-                    arr = new int[arr.Length + 1];
-                }
                 int num, addAnswer; //элемент для добавления, вариант создания элемента
                 Console.WriteLine("Как вы хотите сформировать элемент, который нужно добавить?\n1. С помощью ДСЧ\n2. Самостоятельный ввод с клавиатуры");
                 do
@@ -317,16 +313,16 @@
             }
             else
             {
-                int h = arr.Length - 1; //указатель с конца строки
+                int h = arr.Length - 1;
                 temp = new int[arr.Length];
-                for (int i = 0; i < arr.Length; i++) //проходимся по массиву, двигаясь с начала и конца к середине
+                for (int i = 0; i < arr.Length; i++)
                 {
-                    if (Math.Abs(arr[i]) % 2 == 0) //если чётный элемент, то добавляем на место после заполненного элемента с начала
+                    if (Math.Abs(arr[i]) % 2 == 0)
                     {
                         temp[j] = arr[i];
                         j++;
                     }
-                    else //нечётный элемент добавляем на свободное место с конца массива
+                    else
                     {
                         temp[h] = arr[i];
                         h--;
@@ -336,8 +332,8 @@
                     Console.Write(item + " ");
                 Console.WriteLine("\nЗадача выполнена");
             }
-            int chooseReturn; //переменная выбора массива
-            Console.WriteLine("Что вы хотите оставить?\n1. Первончальный массив\n2. Массив с перемещением чётных и нечётных"); //выбор какой массив оставлять
+            int chooseReturn;
+            Console.WriteLine("Что вы хотите оставить?\n1. Первончальный массив\n2. Массив с перемещением чётных и нечётных");
             do
             {
                 isCorrect = Int32.TryParse(Console.ReadLine(), out chooseReturn);
@@ -364,13 +360,13 @@
             {
                 int sumArr = 0, midArithmetic, count = 0;
                 isCorrect = false;
-                foreach (int item in arr) //вычисление суммы для срднего арифметического
+                foreach (int item in arr)
                     sumArr += item;
                 midArithmetic = sumArr / arr.Length; //округлённое значение среднего арифметического
                 Console.WriteLine($"Среднее арифметическое всех элементов массива равно {midArithmetic}");
-                for (int i = 0; i < arr.Length; i++) //поиск элемента равного среднему арифметическому и подсчёт сравнений в перменной count
+                for (int i = 0; i < arr.Length; i++)
                 {
-                    if (arr[i] == midArithmetic) //если нашли нужный элемент
+                    if (arr[i] == midArithmetic)
                     {
                         isCorrect = true;
                         count++;
@@ -395,16 +391,16 @@
             {
                 int elem;
                 temp = new int[arr.Length];
-                for (int i = 1; i < arr.Length; i++) //сорттровка методом простого включения
+                for (int i = 1; i < arr.Length; i++)
                 {
                     elem = arr[i];
                     j = i - 1;
-                    while (j >= 0 && elem < arr[j]) //пока текущий элемент меньше и мы не в самом начале, то меняем элементы местами
+                    while (j >= 0 && elem < arr[j])
                     {
                         arr[j + 1] = arr[j];
                         j--;
                     }
-                    arr[j + 1] = elem; //по окончании цикла присваиваем значения меньшего элемента из сравниваемых в цикле
+                    arr[j + 1] = elem;
                 }
                 Console.WriteLine("Отсортированный массив:");
                 foreach (int item in arr)
@@ -424,7 +420,7 @@
             }
             else
             {
-                int num, left = 0, right = arr.Length, middle, count = 0; //число для поиска, метки и счётчик
+                int num, left = 0, right = arr.Length, middle, count = 0;
                 Console.WriteLine("Введите элемент, который нужно попытаться найти в массиве");
                 do
                 {
@@ -436,25 +432,28 @@
                 do
                 {
                     middle = (left + right) / 2;
-                    if (arr[middle] == num) //если нужно число на середине
+                    if (arr[middle] == num)
                     {
                         left = middle;
+                        count++;
                         isCorrect = true;
                     }
-                    if  (num > arr[middle]) //если число правее середины
+                    if  (num > arr[middle])
                         left = middle + 1;
-                    else //если число левее середины
+                    else
                         right = middle;
-                    count++;
-                    if (isCorrect) //проверка если нужно число на середине, то заканчиваем цикл
+                    if (isCorrect)
                         break;
+                    count++;
                 } while (left != right);
-                if (num == arr[left])
-                    Console.WriteLine($"Элемент нашёлся, он находится на позиции {left + 1}\nДля поиска потребовалось {count} сравнений");
+                if (left < 0 || left >= arr.Length) isCorrect = false;
+                if (isCorrect)
+                    if (num == arr[left])
+                        Console.WriteLine($"Элемент нашёлся, он находится на позиции {left + 1}\nДля поиска потребовалось {count} сравнений");
+                    else
+                        Console.WriteLine($"Введённый элемент не нашёлся\nПотребовалось {count} сравнений");
                 else
-                {
-                    Console.WriteLine($"Введённый элемент не нашёлся\nПотребовалось {count} сравнений");
-                }
+                   Console.WriteLine($"Введённый элемент не нашёлся\nПотребовалось {count} сравнений");
             }
             
         }
